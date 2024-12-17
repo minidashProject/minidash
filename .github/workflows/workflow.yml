@@ -1,0 +1,42 @@
+name: Pull Request Check # 워크플로우 이름
+
+on: # 워크플로우 실행 트리거
+  pull_request: # pull_request 가 실행될 때
+    types: [opened,synchronize] # PR이 생성되거나 업데이트 될 때
+
+jobs: # 작업정의
+  check: 
+    runs-on: ubuntu-latest # 우분트 환경
+    permissions: # 권한 설정
+      pull-requests: write # PR에 쓰기 권한 설정
+    steps: # 작업 단계
+      - uses: actions/github-script@v7
+        with:
+          script: | # 스크립트 시작
+            const pull_request = context.payload.pull_request; # pull_request 객체 가져오기
+
+            if(pull_request === undefined) {
+              console.log("This is not a pull request"); # "This is not a pull request" 출력
+              return; # 종료
+            }
+
+            const body = pull_request.body;
+
+            if(!body) {
+              // PR 에 코멘트를 추가합니다.
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pull_request.number,
+                body: "해당 PR은 가이드라인을 준수하지 않았습니다. 때문에 PR 을 닫도록 하겠습니다. 가이드라인 준수해서 다시 PR 요청을 해주세요",
+              });
+
+              // PR 을 닫습니다.
+                await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pull_request.number,
+                state: "closed",
+              });
+
+            }
