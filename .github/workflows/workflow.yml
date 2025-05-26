@@ -1,23 +1,23 @@
-name: Check Pull Request # 워크플로우 이름
+name: Check Pull Request // 워크플로우 이름
 
-on: # 워크플로우 실행 트리거
-  pull_request: # pull_request가 실행될 때만
-    types: [opened, synchronize] # PR 생성되거나 업데이트 될 때만
+on: // 워크플로우 실행 트리거
+  pull_request: // pull_request가 실행될 때만
+    types: [opened, synchronize] // PR 생성되거나 업데이트 될 때만
     
-jobs: # 작업 정의
+jobs: // 작업 정의
   check: 
-    runs-on: ubuntu-latest # 우분투 환경
-    permissions: # 권한 설정
-      pull-requests: write # pr에 쓰기 권한 설정 
-    steps: # 작업 단계
+    runs-on: ubuntu-latest // 우분투 환경
+    permissions: // 권한 설정
+      pull-requests: write // PR에 쓰기 권한 설정 
+    steps: // 작업 단계
       - uses: actions/github-script@v7
         with: 
-          script: | # 스크립트 시작
-            const pull_request = context.payload.pull_request; # pull_request 객체 가져오기
+          script: | // 스크립트 시작
+            const pull_request = context.payload.pull_request; // pull_request 객체 가져오기
 
-            if (pull_request === undefined) { # pull_reques가 없는 경우
-                console.log("This is not a pull request"); # "This is not a pull request" 출력
-                return; # 종료
+            if (pull_request === undefined) { // pull_request가 없는 경우
+                console.log("This is not a pull request"); // 메시지 출력
+                return; // 종료
             }
 
             const body = pull_request.body;
@@ -32,7 +32,7 @@ jobs: # 작업 정의
                 });
 
                 // PR을 닫습니다.
-                await github.rest.pulls.update({ // PR에 닫음
+                await github.rest.pulls.update({ // PR을 닫음
                     owner: context.repo.owner, // 저장소 소유자
                     repo: context.repo.repo, // 저장소 이름
                     pull_number: pull_request.number, // PR 번호
