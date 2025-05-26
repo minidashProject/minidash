@@ -9,6 +9,7 @@ jobs:  # 작업 정의
     runs-on: ubuntu-latest  # 우분투 환경
     permissions:  # 권한 설정
       pull-requests: write  # pr에 쓰기 권한 설정 
+      issues: write
     steps:  # 작업 단계
       - uses: actions/github-script@v7
         with: 
@@ -22,7 +23,7 @@ jobs:  # 작업 정의
 
             const body = pull_request.body; // 본문 담기
 
-            const message = "아래 기입 내용을 작성해주시고, 해당 라인을 삭제해주세요."
+            const message = "아래 기입 내용을 작성해주시고, 해당 라인을 삭제해주세요.";
 
             if (!body || body.includes(message)) {
                 // PR에 코멘트를 추가
