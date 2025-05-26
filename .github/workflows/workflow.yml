@@ -18,7 +18,7 @@ jobs:  # 작업 정의
 
             if (pull_request === undefined) { // pull_request가 없는 경우
                 console.log("This is not a pull request"); // 메시지 출력
-                return; // 종료
+                return; // 종료!
             }
 
             const body = pull_request.body; // 본문 담기
