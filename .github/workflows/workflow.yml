@@ -22,7 +22,7 @@ jobs:  # 작업 정의
 
             const body = pull_request.body; // 본문 담기
 
-            const message = "아래 기입 내용을 작성해주시고, 해당 라인을 삭제해주세요."
+            const message = "아래 기입 내용을 작성해주시고, 해당 라인을 삭제해주세요.";
 
             if (!body || body.includes(message)) {
                 // PR에 코멘트를 추가
