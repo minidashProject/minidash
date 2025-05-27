@@ -1,3 +1,3 @@
 export const isUpper = (str) => {
-  return srt === str.toUpperCase();
+  return str === str.toUpperCase();
 };

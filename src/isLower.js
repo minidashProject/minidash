@@ -1,3 +1,3 @@
 export const isLower = (str) => {
-  return srt === str.toLowerCase();
+  return str === str.toLowerCase();
 };
